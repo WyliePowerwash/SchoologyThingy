@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SchoologyThingy student dashboard">
+  <title>SchoologyThingy</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-icon">S</div>
+        <div>
+          <strong>SchoologyThingy</strong>
+          <span>Student dashboard</span>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <button class="nav-item active" data-page="dashboard"><span>⌂</span> Dashboard</button>
+        <button class="nav-item" data-page="assignments"><span>✓</span> Assignments</button>
+        <button class="nav-item" data-page="grades"><span>▣</span> Grades</button>
+        <button class="nav-item" data-page="classes"><span>▤</span> Classes</button>
+        <button class="nav-item" data-page="calendar"><span>◷</span> Calendar</button>
+        <button class="nav-item" data-page="settings"><span>⚙</span> Settings</button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="connection-card">
+          <div class="status-dot"></div>
+          <div>
+            <strong>Demo mode</strong>
+            <span>Schoology not connected</span>
+          </div>
+        </div>
+        <p class="small-note">This demo uses sample data. No Schoology password is collected.</p>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="menu-button" id="menuButton" aria-label="Open menu">☰</button>
+        <div class="topbar-title">
+          <h1 id="pageTitle">Dashboard</h1>
+          <p id="pageSubtitle">Here's what's happening with your classes.</p>
+        </div>
+        <div class="topbar-actions">
+          <button class="icon-button" id="themeButton" title="Toggle dark mode">☾</button>
+          <button class="refresh-button" id="refreshButton">↻ <span>Refresh</span></button>
+        </div>
+      </header>
+
+      <div class="content">
+        <section class="page active" id="page-dashboard">
+          <div class="welcome-card">
+            <div>
+              <span class="eyebrow">WELCOME BACK</span>
+              <h2>Ready to get stuff done? 👋</h2>
+              <p>Here's your school overview at a glance.</p>
+            </div>
+            <div class="date-pill" id="todayDate"></div>
+          </div>
+
+          <div class="stat-grid">
+            <div class="stat-card"><span class="stat-label">Overall grade</span><strong id="overallGrade">95%</strong><span class="stat-meta positive">↑ Looking good</span></div>
+            <div class="stat-card"><span class="stat-label">Missing</span><strong id="missingCount">0</strong><span class="stat-meta warning">Needs attention</span></div>
+            <div class="stat-card"><span class="stat-label">Due soon</span><strong id="dueSoonCount">0</strong><span class="stat-meta">Next 7 days</span></div>
+            <div class="stat-card"><span class="stat-label">Classes</span><strong id="classCount">0</strong><span class="stat-meta">This semester</span></div>
+          </div>
+
+          <div class="dashboard-grid">
+            <div class="panel large-panel">
+              <div class="panel-heading"><div><h3>Upcoming assignments</h3><p>Your next things to finish</p></div><button class="text-button" data-go="assignments">View all →</button></div>
+              <div id="upcomingList" class="assignment-list"></div>
+            </div>
+            <div class="panel">
+              <div class="panel-heading"><div><h3>Grades</h3><p>Current class averages</p></div><button class="text-button" data-go="grades">Details →</button></div>
+              <div id="gradeBars" class="grade-bars"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="page" id="page-assignments">
+          <div class="section-header"><div><h2>Assignments</h2><p>Keep track of what is completed, missing, and coming up.</p></div><div class="filters"><select id="assignmentFilter"><option value="all">All</option><option value="upcoming">Upcoming</option><option value="missing">Missing</option><option value="completed">Completed</option></select><input id="assignmentSearch" placeholder="Search assignments..." /></div></div>
+          <div class="panel"><div id="allAssignments" class="assignment-list full"></div></div>
+        </section>
+
+        <section class="page" id="page-grades">
+          <div class="section-header"><div><h2>Grades</h2><p>Your current grades by class.</p></div></div>
+          <div class="grades-grid" id="gradesGrid"></div>
+        </section>
+
+        <section class="page" id="page-classes">
+          <div class="section-header"><div><h2>Classes</h2><p>All of your current classes.</p></div></div>
+          <div class="class-grid" id="classGrid"></div>
+        </section>
+
+        <section class="page" id="page-calendar">
+          <div class="section-header"><div><h2>Calendar</h2><p>A simple look at what's coming next.</p></div></div>
+          <div class="calendar-layout"><div class="panel"><div class="calendar-header"><button id="prevMonth">‹</button><h3 id="calendarMonth"></h3><button id="nextMonth">›</button></div><div class="weekdays"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div><div class="calendar" id="calendar"></div></div><div class="panel"><div class="panel-heading"><div><h3>Deadlines</h3><p>Upcoming due dates</p></div></div><div id="calendarEvents" class="event-list"></div></div></div>
+        </section>
+
+        <section class="page" id="page-settings">
+          <div class="section-header"><div><h2>Settings</h2><p>Customize your dashboard.</p></div></div>
+          <div class="settings-panel panel">
+            <div class="setting-row"><div><strong>Dark mode</strong><span>Use a darker dashboard theme.</span></div><label class="switch"><input type="checkbox" id="darkModeToggle"><span></span></label></div>
+            <div class="setting-row"><div><strong>Schoology connection</strong><span>Official connection can be added later through an authorized integration.</span></div><button class="secondary-button" id="connectButton">Not connected</button></div>
+            <div class="setting-row"><div><strong>Demo data</strong><span>Reset the sample dashboard data.</span></div><button class="secondary-button" id="resetButton">Reset</button></div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+  <div class="toast" id="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>
