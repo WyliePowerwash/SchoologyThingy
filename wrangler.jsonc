@@ -1,0 +1,16 @@
+{
+  "$schema": "https://unpkg.com/wrangler@latest/config-schema.json",
+  "name": "schoologythingy",
+  "main": "worker.js",
+  "compatibility_date": "2026-09-01",
+  "vars": {
+    "FRONTEND_ORIGIN": "https://wyliepowerwash.github.io",
+    "SCHOOLOGY_DOMAIN": "https://troyschools.schoology.com"
+  },
+  "secrets": {
+    "required": [
+      "SCHOOLOGY_CONSUMER_KEY",
+      "SCHOOLOGY_CONSUMER_SECRET"
+    ]
+  }
+}
