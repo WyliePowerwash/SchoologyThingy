@@ -45,12 +45,8 @@ function renderAssignments(){
  $('allAssignments').innerHTML=list.length?list.map(assignmentHTML).join(''):`<div class="assignment-row"><div class="assignment-info"><strong>No assignments found</strong><span>Try another filter or search.</span></div></div>`;
 }
 
-function renderGrades(){
- $('gradesGrid').innerHTML=classes.map(c=>`<div class="grade-card"><h3>${escapeHtml(c.name)}</h3><p>${escapeHtml(c.teacher)}</p><div class="grade-number">${c.grade}%</div><div class="bar"><i style="width:${c.grade}%"></i></div></div>`).join('');
-}
-function renderClasses(){
- $('classGrid').innerHTML=classes.map(c=>`<div class="class-card"><div class="class-top"><h3>${escapeHtml(c.name)}</h3><span class="class-code">${escapeHtml(c.code)}</span></div><p>${escapeHtml(c.teacher)}</p><strong>${c.grade}% current grade</strong></div>`).join('');
-}
+function renderGrades(){$('gradesGrid').innerHTML=classes.map(c=>`<div class="grade-card"><h3>${escapeHtml(c.name)}</h3><p>${escapeHtml(c.teacher)}</p><div class="grade-number">${c.grade}%</div><div class="bar"><i style="width:${c.grade}%"></i></div></div>`).join('')}
+function renderClasses(){$('classGrid').innerHTML=classes.map(c=>`<div class="class-card"><div class="class-top"><h3>${escapeHtml(c.name)}</h3><span class="class-code">${escapeHtml(c.code)}</span></div><p>${escapeHtml(c.teacher)}</p><strong>${c.grade}% current grade</strong></div>`).join('')}
 
 let calendarDate=new Date();
 function renderCalendar(){
@@ -74,6 +70,7 @@ $('menuButton').addEventListener('click',()=>$('sidebar').classList.toggle('open
 function setDark(on){document.body.classList.toggle('dark',on);$('darkModeToggle').checked=on;localStorage.setItem('schoologythingy-dark',on?'1':'0')}
 $('darkModeToggle').addEventListener('change',e=>setDark(e.target.checked));$('themeButton').addEventListener('click',()=>setDark(!document.body.classList.contains('dark')));
 function toast(msg){$('toast').textContent=msg;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2200)}
-$('refreshButton').addEventListener('click',()=>{renderDashboard();renderAssignments();toast('Dashboard refreshed')});$('connectButton').addEventListener('click',()=>toast('Schoology connection is not enabled in demo mode'));
+$('refreshButton').addEventListener('click',()=>{renderDashboard();renderAssignments();toast('Dashboard refreshed')});
+$('connectButton').addEventListener('click',()=>{window.location.href='https://app.schoology.com/login';});
 $('resetButton').addEventListener('click',()=>{renderDashboard();renderAssignments();renderGrades();renderClasses();renderCalendar();toast('Demo data reset')});
 setDark(localStorage.getItem('schoologythingy-dark')==='1');renderDashboard();renderAssignments();renderGrades();renderClasses();renderCalendar();
